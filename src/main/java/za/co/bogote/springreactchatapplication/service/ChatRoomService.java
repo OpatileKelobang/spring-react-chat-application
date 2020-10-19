@@ -1,6 +1,6 @@
 package za.co.bogote.springreactchatapplication.service;
 
-import lombok.var;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.co.bogote.springreactchatapplication.model.ChatRoom;
@@ -18,9 +18,9 @@ public class ChatRoomService {
         return chatRoomRepository
                 .findBySenderIdAndRecipientId(senderId, recipientId)
                 .map(ChatRoom::getChatId)
-                .or(() -> {
-                    if (!createIfNotExist) {
-                        return Optional.empty();
+                 .or(() -> {
+                    if(!createIfNotExist) {
+                        return  Optional.empty();
                     }
                     var chatId = String.format("%s_%s", senderId, recipientId);
 
@@ -41,7 +41,6 @@ public class ChatRoomService {
                     chatRoomRepository.save(recipientSender);
 
                     return Optional.of(chatId);
-
                 });
     }
 
